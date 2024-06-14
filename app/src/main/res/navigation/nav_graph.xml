@@ -10,13 +10,27 @@
         android:name="com.example.sharedviewmodelapp.fragment.PersonalFragment"
         android:label="fragment_personal"
         tools:layout="@layout/fragment_personal" >
+
         <action
-            android:id="@+id/action_personalFragment_to_professionalFragment"
-            app:destination="@id/professionalFragment" />
+            android:id="@+id/action_personalFragment_to_educationFragment"
+            app:destination="@id/educationFragment" />
     </fragment>
     <fragment
         android:id="@+id/professionalFragment"
         android:name="com.example.sharedviewmodelapp.fragment.ProfessionalFragment"
         android:label="fragment_professional"
-        tools:layout="@layout/fragment_professional" />
+        tools:layout="@layout/fragment_professional" >
+        <action
+            android:id="@+id/action_professionalFragment_to_personalFragment"
+            app:destination="@id/personalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/educationFragment"
+        android:name="com.example.sharedviewmodelapp.fragment.EducationFragment"
+        android:label="fragment_education"
+        tools:layout="@layout/fragment_education" >
+        <action
+            android:id="@+id/action_educationFragment_to_professionalFragment"
+            app:destination="@id/professionalFragment" />
+    </fragment>
 </navigation>

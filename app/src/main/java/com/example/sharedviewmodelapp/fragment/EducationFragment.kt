@@ -1,33 +1,26 @@
 package com.example.sharedviewmodelapp.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.sharedviewmodelapp.R
-import com.example.sharedviewmodelapp.databinding.FragmentProfessionalBinding
+import com.example.sharedviewmodelapp.databinding.FragmentEducationBinding
 import com.example.sharedviewmodelapp.viewmodel.SharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class ProfessionalFragment : Fragment() {
-
-    //private val sharedViewModel :SharedViewModel by activityViewModels()
-    private lateinit var binding: FragmentProfessionalBinding
-
+class EducationFragment : Fragment() {
+   private lateinit var binding: FragmentEducationBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfessionalBinding.inflate(inflater, container, false)
-        val view = binding.root
+        binding = FragmentEducationBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
+        val view = binding.root
         return view
     }
 
@@ -36,12 +29,22 @@ class ProfessionalFragment : Fragment() {
 
         var sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
 
+        sharedViewModel.firstName.observe(viewLifecycleOwner, Observer {
+            binding.etFirstName.setText(it.toString())
+        })
 
-        binding.btnSubmit.setOnClickListener {
+        sharedViewModel.lastName.observe(viewLifecycleOwner, Observer {
+            binding.etLastName.setText(it.toString())
+        })
+
+        binding.btnNext.setOnClickListener {
             sharedViewModel.saveData()
-            sharedViewModel.sendProfessionalData(userExperience = binding.etExperience.text.toString(),
-                userDomain = binding.etDomain.text.toString())
+            sharedViewModel.sendEducationalData(userEducation = binding.etEducation.text.toString(),
+                userDegree = binding.etDegree.text.toString()
+                )
+            findNavController().navigate(R.id.action_educationFragment_to_professionalFragment)
         }
+
     }
 
 }
